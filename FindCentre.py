@@ -1,11 +1,11 @@
 # Note to self: lower left corner of image is origin
 
-def _isValid(screen, m, n, x, y, prevC, newC):
+def _validator(screen, m, n, x, y, prevC, newC):
     return not (x < 0 or x>= m or y < 0 or y>= n
                 or screen[x][y] != prevC or screen[x][y] == newC)
 
 # Inspired by the flood fill algorithm
-def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2):
+def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2, validator=_validator):
     queue = []
     max_brightness = 0
     centre = []
@@ -34,7 +34,7 @@ def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2):
          
         # Check if the adjacent
         # pixels are valid
-        if _isValid(screen, m, n, 
+        if validator(screen, m, n, 
                 posX + 1, posY, 
                         prevC, newC):
             
@@ -47,7 +47,7 @@ def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2):
             screen[posX + 1][posY] = newC
             queue.append([posX + 1, posY])
          
-        if _isValid(screen, m, n, 
+        if validator(screen, m, n, 
                     posX-1, posY, 
                         prevC, newC):
             
@@ -58,7 +58,7 @@ def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2):
             screen[posX-1][posY]= newC
             queue.append([posX-1, posY])
          
-        if _isValid(screen, m, n, 
+        if validator(screen, m, n, 
                 posX, posY + 1, 
                         prevC, newC):
             
@@ -69,7 +69,7 @@ def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2):
             screen[posX][posY+1]= newC
             queue.append([posX, posY + 1])
          
-        if _isValid(screen, m, n, 
+        if validator(screen, m, n, 
                     posX, posY-1, 
                         prevC, newC):
             
