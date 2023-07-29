@@ -1,0 +1,25 @@
+intentType obs_collection provenance_name ...   obsid        distance     
+---------- -------------- --------------- ... --------- ------------------
+   science           TESS            SPOC ...  27620095                0.0
+   science           TESS            SPOC ... 106583710                0.0
+   science           TESS            SPOC ...  27604789 217.87913316320584
+   science            PS1             3PI ...   2557787                0.0
+   science            PS1             3PI ...   2557788                0.0
+   science            PS1             3PI ...   2557789                0.0
+   science            PS1             3PI ...   2557790                0.0
+   science            PS1             3PI ...   2557791                0.0
+   science            PS1             3PI ...   2557792 363.75906766870867
+   science            PS1             3PI ...   2557793 363.75906766870867
+       ...            ...             ... ...       ...                ...
+   science           HLSP             QLP ...  39400376  697.4086062284371
+   science           HLSP             QLP ... 151412921  697.4086062284371
+   science           HLSP          PATHOS ...  61026602  697.7300706601616
+   science           HLSP             QLP ... 151349490  699.7600862320625
+   science           HLSP             QLP ...  39255592  699.7600971025644
+   science           HLSP             QLP ... 151349109  701.8562923317882
+   science           HLSP             QLP ...  39254116  701.8563344836217
+   science           HLSP       TESS-SPOC ...  38446914  701.8563344836217
+   science           HLSP             QLP ...  39254583  708.4763266038739
+   science           HLSP             QLP ... 151349233  708.4763266038739
+   science           HLSP           CDIPS ...  80157967   717.904707669152
+Length = 292 rows
