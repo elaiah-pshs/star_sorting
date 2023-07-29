@@ -82,3 +82,4 @@ def findCentre(screen, image, x, y, m=300, n=300, prevC=1, newC=2, validator=_va
     
     centre.reverse()
     return centre
+    
