@@ -1,6 +1,3 @@
-# Objective:
-# -     search for all variable stars in the perseus arm
-
 import os
 from more_itertools import unique_everseen
 from astropy.io import fits
@@ -10,10 +7,9 @@ from astroquery.mast import Catalogs
 from FindCentre import findCentre
 
 mapping = []
-centres = []
 objects = []
 
-hdul = fits.open('skv44513087506516_1.fits')  # open a FITS file
+hdul = fits.open('./data/images/skv44513087506516_1.fits')  # open a FITS file
 w = WCS(hdul[0].header)
 
 data = hdul[0].data  # assume the first extension is a table
@@ -38,11 +34,11 @@ for row in range(300):
             print(f"LOG: Added stars from query centered around coordinates {coords.to_string()}")
 
 objects = vstack(objects)
-objects.write("temp.csv", format='ascii.csv', overwrite=True)
+objects.write("./data/objects/temp.csv", format='ascii.csv', overwrite=True)
 
-with open('temp.csv', 'r') as f, open('objects.csv', 'w') as out_file:
+with open('./data/objects/temp.csv', 'r') as f, open('./data/objects/objects.csv', 'w') as out_file:
     out_file.writelines(unique_everseen(f))
 
-os.remove("temp.csv")
+os.remove("./data/objects/temp.csv")
 
 hdul.close()
