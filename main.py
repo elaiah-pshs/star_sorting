@@ -1,44 +1,29 @@
-import os
-from more_itertools import unique_everseen
-from astropy.io import fits
-from astropy.wcs import WCS
-from astropy.table import hstack, vstack
-from astroquery.mast import Catalogs
-from FindCentre import findCentre
+from GenerateObjects import generateObjects
 
-mapping = []
-objects = []
+if __name__ == "__main__":
+    target_objects = []
 
-hdul = fits.open('./data/images/skv44513087506516_1.fits')  # open a FITS file
-w = WCS(hdul[0].header)
+    # Uncomment the line below to regenerate object list
+    # generateObjects("/data/images/skv44513087506516_1.fits")
 
-data = hdul[0].data  # assume the first extension is a table
-for row in range(300):
-    mapping += [[]]
-    for col in range(300):
-        if data[row][col] > 0.1:
-            mapping[row] += [1]
-        else:
-            mapping[row] += [0]
+    with open("data/objects/objects.csv", 'r') as object_list:
+        keys = object_list.readline().split(',')
+        keys[-1] = keys[-1][:-1]
+        d_index = keys.index("d")
 
-for row in range(300):
-    for col in range(300):
-        if mapping[row][col] == 1:
-            coords = w.pixel_to_world(*findCentre(mapping, data, row, col))
-            obs_table = Catalogs.query_criteria(
-                coordinates=coords.to_string(),
-                catalog="Tic",
-                objType="STAR"
-            )
-            objects.append(hstack(obs_table))
-            print(f"LOG: Added stars from query centered around coordinates {coords.to_string()}")
+        for line in object_list:
+            values = line.split(',')
+            values[-1] = values[-1][:-1]
+            d = values[d_index]
 
-objects = vstack(objects)
-objects.write("./data/objects/temp.csv", format='ascii.csv', overwrite=True)
-
-with open('./data/objects/temp.csv', 'r') as f, open('./data/objects/objects.csv', 'w') as out_file:
-    out_file.writelines(unique_everseen(f))
-
-os.remove("./data/objects/temp.csv")
-
-hdul.close()
+            if d == "nan":
+                continue
+            if not 1850 < float(d) < 2050:
+                continue
+            else:
+                target_objects.append(values)
+        
+    with open("data/objects/targets.csv", 'w') as target_list:
+        target_list.write(','.join(keys) + '\n')
+        for target in target_objects:
+            target_list.write(','.join(target) + '\n')

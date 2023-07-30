@@ -1,5 +1,3 @@
-# Note to self: lower left corner of image is origin
-
 def _validator(screen, m, n, x, y, prevC, newC):
     return not (x < 0 or x>= m or y < 0 or y>= n
                 or screen[x][y] != prevC or screen[x][y] == newC)
