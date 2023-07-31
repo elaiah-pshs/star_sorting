@@ -14,7 +14,7 @@ def getIdByCoords(ra, dec):
         for target in data:
             delta_ra = abs(ra - float(target[ra_index]))
             delta_dec = abs(dec - float(target[dec_index]))
-            diff = (delta_ra + delta_dec) / 2
+            diff = (delta_ra**2 + delta_dec**2)**0.5
 
             if diff < min_diff:
                 min_diff = diff
